@@ -1,5 +1,5 @@
 #FROM logimethods/docker-sbt-docker
-FROM logimethods/docker-sbt-docker
+FROM gambtho/sbt-docker-alpine
 
 # Install AWS CLI
 RUN apt-get update -q
