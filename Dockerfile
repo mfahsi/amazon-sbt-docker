@@ -1,8 +1,15 @@
 #FROM logimethods/docker-sbt-docker
-#FROM gambtho/sbt-docker-alpine
-FROM  e8kor/sbt-docker
-
-# Install AWS CLI
-RUN apt-get update -q
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -qy python-pip
-RUN pip install awscli
+FROM gambtho/sbt-docker-alpine
+ENV AWSCLI_VERSION "1.11.177"
+RUN apk -v --update add \
+        python \
+        py-pip \
+        groff \
+        less \
+        mailcap \
+        && \
+    pip install --upgrade awscli==${AWSCLI_VERSION} && \
+    apk -v --purge del py-pip && \
+    rm /var/cache/apk/*
+VOLUME /root/.aws
+WORKDIR /root
